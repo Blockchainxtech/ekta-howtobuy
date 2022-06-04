@@ -29,7 +29,8 @@ jobs:
       - run: sudo npm install -g @angular/cli
       - run: npm cache clean --force
       - run: node patch.js
-      - run: CI=false ng build --prod
+      - run: ng config -g cli.warnings.versionMismatch false
+      - run: ng build --prod
 
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
