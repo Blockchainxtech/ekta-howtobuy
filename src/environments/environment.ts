@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-
+  BASE_URL:'https://devpi.ektanft.io/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
