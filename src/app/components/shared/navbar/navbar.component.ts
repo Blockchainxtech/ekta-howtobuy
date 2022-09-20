@@ -201,6 +201,10 @@ export class NavbarComponent implements OnInit {
     return {network, key};
   }
 
+  disconnect(){
+    this.storageService.setItem('walletconnect', "");
+    this.setAccount("", "", "");
+  }
   
 }
 

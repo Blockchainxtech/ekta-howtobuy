@@ -31,8 +31,11 @@
         </ul>
       </div>
       <button *ngIf="account.address == ''" class="btn btn--primary rounded--xl px-4 font--medium" type="submit" (click)="connectMetamask()">Connect Wallet</button>
-      <button *ngIf="account.address !== ''" class="btn btn--primary rounded--xl px-4 font--medium" type="submit" (click)="connectMetamask()">
-        {{account.network}} - {{account.address.slice(0, 5)}}...{{account.address.slice(account.address.length - 5)}}
-      </button>
+      <div class="dropdown" id="dropdown" *ngIf="account.address !== ''">
+        <button class="btn btn--primary rounded--xl px-4 font--medium">{{account.network}} - {{account.address.slice(0, 5)}}...{{account.address.slice(account.address.length - 5)}}</button>
+        <div class="dropdown-content cursor-pointer">
+          <a (click)="disconnect()">Disconnect</a>
+        </div>
+      </div>
     </div>
   </nav>
