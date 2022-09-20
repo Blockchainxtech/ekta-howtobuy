@@ -126,9 +126,40 @@
                  
             </div>
             <div class="row pb-md-4 g-4">
-                <div class="col col-lg-12 mb-4">
+                <div class="col col-lg-4 mb-4">
+                    <div class="d-flex align-items-center justify-content-between">   
+                        <span class="text-white l-font-bold p-2 px-4 rounded--sm bg--primary w-25">Step 4</span>
+                        <div class="steps--line"></div>
+                    </div>
+                    <div class="p-4 rounded--lg bg--primary my-4 mh-80 d-flex justify-content-between flex-column">
+                        <div>
+                            <div class="roadmap__head d-flex  align-items-center">
+                                <img src="assets/images/roadmap/wekta.svg" height="50" alt="ekta"> 
+                                <span class="wekta-text">WEKTA</span>
+                                <div class="form-check form-check-wekta">
+                                    <input *ngIf="!wektaToken" class="form-check-input" type="checkbox" disabled value=""  id="flexCheckDefault">
+                                    <input *ngIf="wektaToken" class="form-check-input" type="checkbox" value="" checked id="flexCheckDefault">
+                                </div>
+                            </div>
+                            <hr class="hr--primary">
+                            <div class="roadmap__content py-2">
+                                <h4 class="text-white l-font-bold">Add WEKTA to your Metamask</h4>
+                                <p class="l-font-regular text--subcontent"> WEKTA is used across multiple Dapps under EKTA Chain ecosystem. If you haven’t already done so, click “Add” to automatically add it, or follow the guide by clicking “Show me how”.
+                                </p>
+                            </div>
+                        </div>
+                       
+                        <div class="d-xl-flex justify-content-between gap-3 wekta-add-btn">
+                            <a href="https://resources.ekta.io/ektachain-network-how-to-add-to-metamask-wallet/" target="_blank" class="btn bg-transparent w-100 b__btn--ekta p-2 rounded--sm text-white l-font--bold">Show me how</a>
+                           
+                                <button type="button" class="btn btn--ekta w-100 text-white rounded--sm p-2 l-font--bold mt-2 mt-xl-0" (click)="addWEktaToken()">Add</button>
+                           
+                        </div>
+                    </div>
+                 </div>
+                <div class="col col-lg-8 mb-4">
                     <div class="d-flex align-items-center justify-content-start">   
-                        <span class="text-white l-font-bold p-2 px-4 rounded--sm bg--binance  me-4">Step 4</span>
+                        <span class="text-white l-font-bold p-2 px-4 rounded--sm bg--binance  me-4">Step 5</span>
                         <div class="step4--line"></div>
                     </div>
                     <div class="row mt-4 pt-1 mh-80 ms-xl-2">
@@ -190,7 +221,7 @@
                 </div>
                 <div class="col col-lg-8 mb-4">
                     <div class="d-flex align-items-center justify-content-start">   
-                        <span class="text-white l-font-bold p-2 px-4 rounded--sm bg--binance  me-4">Step 5</span>
+                        <span class="text-white l-font-bold p-2 px-4 rounded--sm bg--binance  me-4">Step 6</span>
                         <div class="step4--line"></div>
                     </div>
                     <div class="row mt-4 pt-1 mh-80 ms-xl-2">
@@ -252,7 +283,7 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="d-flex align-items-center justify-content-between">   
-                        <span class="text-white l-font-bold p-2 px-4 mb-1 rounded--sm bg--primary w-25">Step 6</span>
+                        <span class="text-white l-font-bold p-2 px-4 mb-1 rounded--sm bg--primary w-25">Step 7</span>
                         <!-- <div class="steps--line"></div> -->
                     </div>
                     <div class="p-4 rounded--lg bg--primary mt-4 mb-3 mh-80 d-flex justify-content-between flex-column">

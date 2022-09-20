@@ -40,3 +40,16 @@
 .object-contain {
     object-fit: contain;
 }
+.form-check-wekta{
+    width: 100% !important;
+}
+.form-check-wekta > input{
+    float: right !important;
+}
+.wekta-text{
+    font-size: 18px;
+    margin-left: 5px;
+}
+.wekta-add-btn{
+    margin-bottom: 3.5rem !important;
+}

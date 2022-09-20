@@ -7,6 +7,7 @@ import QRCodeModal from "@walletconnect/qrcode-modal";
 import { AccountService } from 'src/app/services/account.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 // Set web3 and connector
 let web3 = new Web3(window['ethereum']);
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
   bscUSDTToken: boolean = false;
   thankyou: boolean = false;
   submitted:Boolean = false;
+  wektaToken: boolean = false;
   
   constructor(
     private toastr: ToastrService,
@@ -152,6 +154,43 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+  
+  async addWEktaToken(){
+    // this.addToken.nativeElement.click();
+    if(this.account.chainId == '' || this.account.chainId == undefined){
+      // this.uiWallet.nativeElement.click();
+      let account = { status: true };
+      this.accountService.connectionStatus(account);
+    }
+    else if(this.account.chainId != '0x7ca'){
+      await window['ethereum'].request({ method: 'wallet_switchEthereumChain', params:[{chainId: '0x7ca'}]});
+        setTimeout(()=>  this.importWektaToken(), 500)
+      return;
+    }
+    else{
+      this.importWektaToken();
+    }
+  }
+
+  importWektaToken(){
+    window['ethereum'].request({
+     method: 'wallet_watchAsset',
+     params: {
+       type: 'ERC20',
+       options: {
+         address: '0x01D173d4E3b88DB8871dcfc9EfB9693e73375A43',
+         symbol: 'WEKTA',
+         decimals: 18,
+         image: environment.BASE_URL+'assets/images/roadmap/wekta.svg',
+       },
+     },
+   })
+   .then((success) => {
+    this.wektaToken = true;
+  })
+   .catch((error) => {
+    });
+ }
 
   async addEthToken(){
     // this.addToken.nativeElement.click();
