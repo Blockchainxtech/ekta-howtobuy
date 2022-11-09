@@ -51,5 +51,10 @@
     margin-left: 5px;
 }
 .wekta-add-btn{
-    margin-top: 3rem !important;
+    margin-top: 1rem !important;
+}
+@media screen and (min-width: 900px) {
+    .custom-size-cards{
+        width: 48% !important;
+    }
 }
