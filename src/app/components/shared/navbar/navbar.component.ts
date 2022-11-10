@@ -21,12 +21,12 @@ let connector = new WalletConnect({
  * Export Class
  */
 export class NavbarComponent implements OnInit {
-  ethereum: any;
-  account: any = {};
-  alertSuccess: boolean = true;
-  connector: any;
-  getChainIdInterval: any;
-  currentUrl: any;
+  public ethereum: any;
+  public account: any = {};
+  public alertSuccess: boolean = true;
+  public connector: any;
+  public getChainIdInterval: any;
+  public currentUrl: any;
 
   /**
    * constructor
