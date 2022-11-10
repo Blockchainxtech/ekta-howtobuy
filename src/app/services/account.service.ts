@@ -17,9 +17,6 @@ export class AccountService {
     chainId: string,
     network: string
   }>;
-  public registerObserve: Observable<{
-    status: boolean;
-  }>;
   public connectionObserve: Observable<{
     status: boolean;
   }>;
@@ -31,11 +28,6 @@ export class AccountService {
       network: ''
     });
     this.accountObserve = this.account.asObservable();
-    
-    this.register = new BehaviorSubject({
-      status: false
-    });
-    this.registerObserve = this.register.asObservable();
     
     this.connection = new BehaviorSubject({
       status: false
@@ -49,40 +41,11 @@ export class AccountService {
     network: string
   }) {
     this.account.next(data);
-  };
-
-  registerStatus(registerStatus: {
-    status: boolean
-  }) {
-    this.register.next(registerStatus);
   }
+
   connectionStatus(connectionStatus: {
     status: boolean
   }) {
     this.connection.next(connectionStatus);
-  }
-
-  checkRegister(wallet_address){
-    wallet_address = JSON.parse(wallet_address);
-    console.log("wallet_address sss",wallet_address);
-    return  this.http.post(`${apiUrl}/api/v1/get-user/wallet-address`,wallet_address); 
-  }
-  checkEmail(email){
-    return  this.http.get(`${apiUrl}/api/v1/validate-user-email/`+email); 
-  }
-  checkUserName(username){
-    return  this.http.get(`${apiUrl}/api/v1/validate-user-username/`+username); 
-  }
-  getRegister(){
-    return this.http.get(`${apiUrl}/api/v1/get-users`); 
-  }
-  addRegister(details): Observable<any>{
-    console.log("check details",details);
-    return this.http.post(`${apiUrl}/api/v1/add-user/`,details); 
-  }
-
-  saveWalletAddress(details){
-    console.log(`${apiUrl}/api/v1/add-wallet-address-to-sheet/`,details);
-    return this.http.post(`${apiUrl}/api/v1/add-wallet-address-to-sheet/`,details); 
   }
 }

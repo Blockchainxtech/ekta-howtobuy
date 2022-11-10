@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import Web3 from 'web3';
-import { ToastrService } from 'ngx-toastr';
-
-// Connect Wallet
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 import { AccountService } from 'src/app/services/account.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { Router } from '@angular/router';
 
 // Set web3 and connector
 let web3 = new Web3(window['ethereum']);
@@ -20,6 +16,10 @@ let connector = new WalletConnect({
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
+
+/**
+ * Export Class
+ */
 export class NavbarComponent implements OnInit {
   ethereum: any;
   account: any = {};
@@ -28,10 +28,18 @@ export class NavbarComponent implements OnInit {
   getChainIdInterval: any;
   currentUrl: any;
   currentUrl1: any;
-  constructor(private accountService: AccountService, private storageService: StorageService,
-    private router: Router,
-    private toastr: ToastrService) { }
 
+  /**
+   * constructor
+   */
+  constructor(
+    private accountService: AccountService, 
+    private storageService: StorageService
+  ) { }
+
+  /**
+   * Initial Loader
+   */
   ngOnInit(): void {
     this.account = this.storageService.getItem('account') === null ? { address: "", network: "", chainId: "", provider: "" } : JSON.parse(this.storageService.getItem('account'));
     this.setAccount(this.account.address, this.account.chainId, this.account.provider);
@@ -46,20 +54,23 @@ export class NavbarComponent implements OnInit {
       this.wallectConnectListener();
     }
     this.getChainIdInterval =  setInterval(() => this.getChainId(), 500)
-    // checkClaimDetails
-    console.log("this.account.address",this.account.address);
-
     this.accountService.connectionObserve.subscribe(response => {
-      if(response.status == true){
+      if(response.status){
        this.connectMetamask();
       }
     });
   }
 
+  /**
+   * Get Chain Id
+   */
   getChainId = async () => {
     this.setNetwork(this.account.chainId);
   }
   
+  /**
+   * Connect Wallet
+   */
   connectWallet = async () => {
     // Create a connector
     this.connector = new WalletConnect({
@@ -74,6 +85,9 @@ export class NavbarComponent implements OnInit {
     this.wallectConnectListener();
   }
 
+  /**
+   * Wallect Connect Listener
+   */
   public wallectConnectListener() {
     // Subscribe to connection events
     this.connector.on("connect", (error, payload) => {
@@ -105,16 +119,20 @@ export class NavbarComponent implements OnInit {
     });
     this.alertSuccess = true;
   }
-// Meta mask connection
+
+  /**
+   * Connect Metamask
+   */
   connectMetamask = async () => {
     this.ethereum = window['ethereum'];
-    if (typeof this.ethereum !== 'undefined') {
-    }
     const accounts = await this.ethereum.request({ method: 'eth_requestAccounts' });
     this.setAccount(accounts[0], this.ethereum.chainId, 'metamask');
     this.metamastListener();
   }
 
+  /**
+   * Metamast Listener
+   */
   public metamastListener() {
     // Listener
     this.ethereum.on('accountsChanged', (accounts) => {
@@ -133,14 +151,14 @@ export class NavbarComponent implements OnInit {
   
   /**
    * Store account details
-   * @param address 
-   * @param chainId 
-   * @param provider 
+   * @param {string} address 
+   * @param {string} chainId 
+   * @param {string} provider 
    */
   public async setAccount(address, chainId, provider) {
     let account;
     if (address != "" && address != undefined) {
-      const {network, key} = await this.setNetwork(chainId);
+      const {network, key} = this.setNetwork(chainId);
       account = { address: address, chainId: chainId, network, key, provider: provider  }
     } else {
       account = { address: "", network: "", chainId: "", provider: "", key: "" };
@@ -152,7 +170,7 @@ export class NavbarComponent implements OnInit {
 
   /**
   * Network Details
-  * @param chainId 
+  * @param {string} chainId 
   * @returns 
   */
    public setNetwork(chainId) {
@@ -201,6 +219,9 @@ export class NavbarComponent implements OnInit {
     return {network, key};
   }
 
+  /**
+   * Disconnect
+   */
   disconnect(){
     this.storageService.setItem('walletconnect', "");
     this.setAccount("", "", "");

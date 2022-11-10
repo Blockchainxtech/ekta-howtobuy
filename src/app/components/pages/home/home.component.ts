@@ -1,51 +1,45 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import Web3 from 'web3';
-// Connect Wallet
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
 import { AccountService } from 'src/app/services/account.service';
 import { StorageService } from 'src/app/services/storage.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 
-// Set web3 and connector
-let web3 = new Web3(window['ethereum']);
-let connector = new WalletConnect({
-  bridge: "https://bridge.walletconnect.org"
-});
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+/**
+ * Export Class
+ */
 export class HomeComponent implements OnInit {
   @ViewChild('uiWallet') uiWallet;
   @ViewChild('addNetwork') addNetwork;
   @ViewChild('addToken') addToken;
-  public registerForm: FormGroup;
-  ethereum: any;
-  account: any = {};
-  alertSuccess: boolean = true;
-  connector: any;
-  ektaMainnet: boolean = false;
-  bscMainnet: boolean = false;
-  ethToken: boolean = false;
-  ethUSDTToken: boolean = false;
-  bscToken: boolean = false;
-  bscUSDTToken: boolean = false;
-  thankyou: boolean = false;
-  submitted:Boolean = false;
-  wektaToken: boolean = false;
+  public ethereum: any;
+  public account: any = {};
+  public ektaMainnet: boolean = false;
+  public bscMainnet: boolean = false;
+  public ethToken: boolean = false;
+  public ethUSDTToken: boolean = false;
+  public bscToken: boolean = false;
+  public bscUSDTToken: boolean = false;
+  public wektaToken: boolean = false;
   
+  /**
+   * constructor
+   */
   constructor(
     private toastr: ToastrService,
     private accountService: AccountService,
-    private storageService: StorageService,
-    private formBuilder:FormBuilder
+    private storageService: StorageService
   ) { }
 
+  /**
+   * Initial Loader
+   */
   ngOnInit(): void {
     this.ethereum = window['ethereum'];
     this.account = this.storageService.getItem('account') === null ? { address: "", network: "", chainId: "", provider: "" } : JSON.parse(this.storageService.getItem('account'));
@@ -53,45 +47,19 @@ export class HomeComponent implements OnInit {
       this.account = response;
     });
 
-    this.registerForm = this.formBuilder.group({
-      email:['', [Validators.required, Validators.email]],
-      walletAddress:['', [Validators.required]]
-    });
-    setTimeout(()=> 
-      this.registerForm.patchValue({
-        walletAddress:this.account.address
-      }),
-    1000)
-    
   }
 
+  /**
+   * Connect Wallet
+   */
   connectWallet(){
       let account = { status: true };
       this.accountService.connectionStatus(account);
   }
-  
-  get formGet () { return this.registerForm.controls; }
 
-  registerProcess(registerForm:any):void{
-    this.submitted = true;
-    if(this.registerForm.invalid) {
-      return;
-    }
-    let details = {
-      "walletAddress":registerForm.value.walletAddress,
-      "email":registerForm.value.email
-    }
-    var formData: any = new FormData();
-    formData.append("walletAddress", this.registerForm.get('walletAddress').value);
-    formData.append("email", this.registerForm.get('email').value);
-
-    this.accountService.saveWalletAddress(details).subscribe( response => {
-      this.toastr.success(response['message']);
-      this.thankyou = true;
-    })
-
-  }
-
+  /**
+   * Add Bsc Mainnet
+   */
   addBscMainnet(){
     window['ethereum'].request({ 
      method: 'wallet_addEthereumChain',
@@ -108,12 +76,10 @@ export class HomeComponent implements OnInit {
      }]
    })
      .then((success) => {
-      console.log("receipt",success);
        this.toastr.success("Network Added Successfully");
        this.bscMainnet = true;
      })
      .catch((error) => {
-      console.log("error",error);
        if (error.code === 4001){
          this.toastr.error('User rejected');
        }
@@ -124,6 +90,9 @@ export class HomeComponent implements OnInit {
    
  }
  
+ /**
+  * Add Ekta Mainet
+  */
   addEktaMainet(){
     window['ethereum'].request({ 
       method: 'wallet_addEthereumChain',
@@ -140,12 +109,10 @@ export class HomeComponent implements OnInit {
       }]
     })
     .then((success) => {
-      console.log("receipt",success);
       this.toastr.success("Network Added Successfully");
       this.ektaMainnet = true;
     })
     .catch((error) => {
-      console.log("error",error);
       if (error.code === 4001){
         this.toastr.error('User rejected');
       }
@@ -155,10 +122,11 @@ export class HomeComponent implements OnInit {
     });
   }
   
+  /**
+   * Add WEkta Token
+   */
   async addWEktaToken(){
-    // this.addToken.nativeElement.click();
     if(this.account.chainId == '' || this.account.chainId == undefined){
-      // this.uiWallet.nativeElement.click();
       let account = { status: true };
       this.accountService.connectionStatus(account);
     }
@@ -192,10 +160,11 @@ export class HomeComponent implements OnInit {
     });
  }
 
+ /**
+  * Add Eth Token 
+  */
   async addEthToken(){
-    // this.addToken.nativeElement.click();
     if(this.account.chainId == '' || this.account.chainId == undefined){
-      // this.uiWallet.nativeElement.click();
       let account = { status: true };
       this.accountService.connectionStatus(account);
     }
@@ -209,10 +178,11 @@ export class HomeComponent implements OnInit {
     }
   }
  
+  /**
+   * Add USDT Token 
+   */
   async addUSDTToken(){
-    // this.addToken.nativeElement.click();
     if(this.account.chainId == '' || this.account.chainId == undefined){
-      // this.uiWallet.nativeElement.click();
       let account = { status: true };
       this.accountService.connectionStatus(account);
     }
@@ -225,10 +195,12 @@ export class HomeComponent implements OnInit {
       this.importUSDTToken();
     }
   }
+
+  /**
+   * Add Bsc USDT Token 
+   */
   async addBscUSDTToken(){
-    // this.addToken.nativeElement.click();
     if(this.account.chainId == '' || this.account.chainId == undefined){
-      // this.uiWallet.nativeElement.click();
       let account = { status: true };
       this.accountService.connectionStatus(account);
     }
@@ -242,12 +214,13 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Add Bsc Token 
+   */
   async addBscToken(){
     if(this.account.chainId == '' || this.account.chainId == undefined){
-      // this.uiWallet.nativeElement.click();
       let account = { status: true };
       this.accountService.connectionStatus(account);
-      return
     }
     else if(this.account.chainId != '0x38'){
       await window['ethereum'].request({ method: 'wallet_switchEthereumChain', params:[{chainId: '0x38'}]});
@@ -259,6 +232,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Import Bsc Token
+   */
   importBscToken(){
     window['ethereum'].request({
      method: 'wallet_watchAsset',
@@ -278,6 +254,10 @@ export class HomeComponent implements OnInit {
    .catch((error) => {
     });
  }
+
+ /**
+  * Import Eth Token 
+  */
  importEthToken(){
     window['ethereum'].request({
      method: 'wallet_watchAsset',
@@ -297,6 +277,10 @@ export class HomeComponent implements OnInit {
    .catch((error) => {
     });
  }
+
+ /**
+  * Import USDT Token
+  */
  importUSDTToken(){
     window['ethereum'].request({
      method: 'wallet_watchAsset',
@@ -317,6 +301,9 @@ export class HomeComponent implements OnInit {
     });
  }
  
+ /**
+  * Import Bsc USDT Token
+  */
  importBscUSDTToken(){
     window['ethereum'].request({
      method: 'wallet_watchAsset',
@@ -336,6 +323,5 @@ export class HomeComponent implements OnInit {
    .catch((error) => {
     });
  }
-
 
 }

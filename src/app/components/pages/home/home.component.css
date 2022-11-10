@@ -1,30 +1,14 @@
-@media only screen and (max-width: 990px){
-    .d-md-flex{
-        /* display: inline !important; */
-    }
-    .custom-card{
-        /* width: 100% !important; */
-        /* margin-left: 0.5rem!important; */
-        /* margin-right: 0rem !important; */
-    }
-    .custom-card-bottom{
-        /* margin-bottom: 2rem !important; */
-        /* margin-left: 0.5rem!important; */
-        /* margin-right: 0rem !important; */
-    }
-    .me-md-4{
-        /* margin-right: 0rem !important; */
-    }
-}
-
 .form-check-input:checked {
     background-color: #198754 !important;
     border-color: #198754 !important;
 }
+
 .form-check-input {
     background-color: #198754 !important;
-    border: 1px solid #198754 !important;;
+    border: 1px solid #198754 !important;
+    ;
 }
+
 .bg--input.form-control,
 .bg--input.form-control:focus,
 .bg--input.form-control:active {
@@ -32,46 +16,56 @@
     color: #ac1506;
     box-shadow: none !important;
 }
+
 ::placeholder {
     color: #ac1506;
 }
-.bg--metamask{
+
+.bg--metamask {
     width: auto !important;
 }
-.connect-btn{
+
+.connect-btn {
     padding: 10px !important;
 }
-.bg--metamask{
+
+.bg--metamask {
     width: auto !important;
 }
-.bg--metamask{
+
+.bg--metamask {
     width: auto !important;
 }
-.bg--binance{
+
+.bg--binance {
     width: auto !important;
 }
-.bg--primary{
+
+.bg--primary {
     width: auto !important;
 }
-.bg--binance{
+
+.bg--binance {
     width: auto !important;
 }
+
 .object-contain {
     object-fit: contain;
 }
-.form-check-wekta{
+
+.form-check-wekta {
     width: 100% !important;
 }
-.form-check-wekta > input{
+
+.form-check-wekta>input {
     float: right !important;
 }
-.wekta-text{
+
+.wekta-text {
     font-size: 18px;
     margin-left: 5px;
 }
-.wekta-add-btn{
+
+.wekta-add-btn {
     margin-top: 3rem !important;
-}
-.margin-right{
-    /* margin-right: 0.7rem !important; */
 }
