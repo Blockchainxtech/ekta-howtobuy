@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
   connector: any;
   getChainIdInterval: any;
   currentUrl: any;
-  currentUrl1: any;
 
   /**
    * constructor
