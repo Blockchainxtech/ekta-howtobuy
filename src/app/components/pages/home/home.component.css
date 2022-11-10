@@ -1,3 +1,22 @@
+@media only screen and (max-width: 990px){
+    .d-md-flex{
+        /* display: inline !important; */
+    }
+    .custom-card{
+        /* width: 100% !important; */
+        /* margin-left: 0.5rem!important; */
+        /* margin-right: 0rem !important; */
+    }
+    .custom-card-bottom{
+        /* margin-bottom: 2rem !important; */
+        /* margin-left: 0.5rem!important; */
+        /* margin-right: 0rem !important; */
+    }
+    .me-md-4{
+        /* margin-right: 0rem !important; */
+    }
+}
+
 .form-check-input:checked {
     background-color: #198754 !important;
     border-color: #198754 !important;
@@ -54,5 +73,5 @@
     margin-top: 3rem !important;
 }
 .margin-right{
-    margin-right: 0.7rem !important;
+    /* margin-right: 0.7rem !important; */
 }
